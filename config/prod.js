@@ -5,5 +5,5 @@ module.exports = {
 
     SENDGRID_API: process.env.SENDGRID_API,
 
-    EMAIL: Process.env.EMAIL,
+    EMAIL: process.env.EMAIL,
 }
