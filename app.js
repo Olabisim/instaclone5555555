@@ -33,7 +33,8 @@ app.use(require('./routes/user'))
 
 //common name: olabisi
 //ja1KBYOxSwyiLZ2Z
-
+//the app.sendgrid.com api key
+//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
 
 if(process.env.NODE_ENV == "production"){
     app.use(express.static('client/build'))

@@ -21,6 +21,8 @@ const userSchema = new mongoose.Schema({
         required: true
 
     },
+    resetToken: String,
+    expireToken: Date,
     pic: {
         type: String,
         default: ''

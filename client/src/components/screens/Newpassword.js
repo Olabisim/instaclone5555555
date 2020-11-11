@@ -1,31 +1,25 @@
 import React, {useState, useContext} from 'react';
-import {Link, useHistory} from 'react-router-dom';
-import {UserContext} from '../../App'
+import {Link, useHistory, useParams} from 'react-router-dom';
 import M from 'materialize-css'
 
 
 
 const SignIn = () => {
-    const {state, dispatch} = useContext(UserContext)
     const history = useHistory()
     const [password, setPassword] = useState("")
-    const [email, setEmail] = useState("")
+    const {token} = useParams()
+    console.log(token)
 
     const PostData = () => {
-        if(!/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(email)) {
 
-            M.toast({html: "invalid email", classes: "#c62828 red darken-3"})
-            return
-        }
-
-        fetch("/signin",  {
+        fetch("/new-password",  {
             method: "post",
             headers: {
                 "Content-Type": "application/json"
              },
             body: JSON.stringify ({
                 password,
-                email
+                token
             })
         }).then(res => res.json())
         .then(data => {
@@ -36,11 +30,8 @@ const SignIn = () => {
 
             else {
 
-                localStorage.setItem("jwt", data.token)
-                localStorage.setItem("user", JSON.stringify(data.user))
-                dispatch({type: 'USER', payload:data.user})
-                M.toast({html: "signed in success", classes: "#43a047 green darken-1"})
-                history.push('/')
+                M.toast({html: data.message, classes: "#43a047 green darken-1"})
+                history.push('/signin')
 
             }
         }).catch( err => {
@@ -54,17 +45,10 @@ const SignIn = () => {
 
                 <h2 className="brand-logo">Instagram</h2>
 
-                <input 
-                    type='text'
-                    placeholder="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                 
-                />
 
                 <input 
                     type='password'
-                    placeholder="password"
+                    placeholder="enter new password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                 
@@ -76,16 +60,9 @@ const SignIn = () => {
                 name="action"
                 onClick={() => PostData()}
                 >
-                    Login
+                    update password
                 </button>
 
-                <h5>
-                    <Link to="/signup">Don't have an account?</Link>
-                </h5>
-                
-                <h6>
-                    <Link to="/reset">forgot password</Link>
-                </h6>
             
             </div>
         </div>

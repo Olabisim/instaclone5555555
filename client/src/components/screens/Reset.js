@@ -5,10 +5,8 @@ import M from 'materialize-css'
 
 
 
-const SignIn = () => {
-    const {state, dispatch} = useContext(UserContext)
+const Reset = () => {
     const history = useHistory()
-    const [password, setPassword] = useState("")
     const [email, setEmail] = useState("")
 
     const PostData = () => {
@@ -18,13 +16,12 @@ const SignIn = () => {
             return
         }
 
-        fetch("/signin",  {
+        fetch("/reset-password",  {
             method: "post",
             headers: {
                 "Content-Type": "application/json"
              },
             body: JSON.stringify ({
-                password,
                 email
             })
         }).then(res => res.json())
@@ -36,11 +33,8 @@ const SignIn = () => {
 
             else {
 
-                localStorage.setItem("jwt", data.token)
-                localStorage.setItem("user", JSON.stringify(data.user))
-                dispatch({type: 'USER', payload:data.user})
-                M.toast({html: "signed in success", classes: "#43a047 green darken-1"})
-                history.push('/')
+                M.toast({html: data.message, classes: "#43a047 green darken-1"})
+                history.push('/signin')
 
             }
         }).catch( err => {
@@ -62,30 +56,15 @@ const SignIn = () => {
                  
                 />
 
-                <input 
-                    type='password'
-                    placeholder="password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                
-                />
-
 
 
                 <button className="btn waves-effect waves-light #64b5f6 blue lighten-2"
                 name="action"
                 onClick={() => PostData()}
                 >
-                    Login
+                    reset password 
                 </button>
 
-                <h5>
-                    <Link to="/signup">Don't have an account?</Link>
-                </h5>
-                
-                <h6>
-                    <Link to="/reset">forgot password</Link>
-                </h6>
             
             </div>
         </div>
@@ -94,4 +73,4 @@ const SignIn = () => {
 
 }
 
-export default SignIn;
+export default Reset;
