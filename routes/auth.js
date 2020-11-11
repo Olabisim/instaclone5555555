@@ -1,4 +1,4 @@
-const { SENDGRID_API } = require('../config/dev')
+const { SENDGRID_API } = require('../config/keys')
 
 const express = require('express'),
     router = express.Router(),
@@ -7,12 +7,14 @@ const express = require('express'),
     crypto = require('crypto')
     bcrypt = require('bcryptjs'),
     jwt = require('jsonwebtoken'),
-    {JWT_SECRET} = require('../config/keys'),
+    {JWT_SECRET, EMAIL} = require('../config/keys'),
     requireLogin = require('../middleware/requireLogin'),
     nodemailer = require('nodemailer'),
-    sendgridTransport = require('nodemailer-sendgrid-transport'),
-    {SENDGRID_API, EMAIL} = require('../config/keys')
+    sendgridTransport = require('nodemailer-sendgrid-transport')
 
+
+
+    
 
 //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
 
