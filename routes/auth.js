@@ -11,7 +11,7 @@ const express = require('express'),
     requireLogin = require('../middleware/requireLogin'),
     nodemailer = require('nodemailer'),
     sendgridTransport = require('nodemailer-sendgrid-transport'),
-    {SENDGRID_API} = require('../config/keys')
+    {SENDGRID_API, EMAIL} = require('../config/keys')
 
 
 //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
